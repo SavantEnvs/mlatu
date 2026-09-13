@@ -1,0 +1,15 @@
+# Target name `parse` preserved from the old fork's mayhem/parse.mayhemfile so the
+# project's Mayhem run history stays attached. Restored the old file's second,
+# non-instrumented cmd (/parse_no_inst @@) alongside the instrumented libFuzzer binary:
+# at run 11 most relevant defects came from the plain binary's native crash, which
+# triages under a different signature than the ASan build's report of the same bug
+# (see mayhem/build.sh) — a single cmd reproduced only 3 of 12.
+# origin: https://app.mayhem.security/mayhemheroes/mlatu/parse/11
+project: savantenvs/mlatu
+target: parse-buggy-mhh-run-11
+
+cmds:
+  - cmd: /mayhem/parse
+    libfuzzer: true
+  - cmd: /mayhem/parse_no_inst @@
+    libfuzzer: false
